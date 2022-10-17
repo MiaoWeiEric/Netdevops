@@ -37,31 +37,30 @@ with open("list.txt") as file:
             ie.find_element(By.ID,"username").send_keys("admin")
             ie.find_element(By.ID,"password").clear()
             ie.find_element(By.ID,"password").send_keys("Admin256")
-            time.sleep(1)
+
             ie.find_element(By.CLASS_NAME,"login-btn").click()
-            time.sleep(2)
+
             ie.find_element(By.NAME,"event").click()
-            time.sleep(2)
+
             ie.implicitly_wait(20)
-            if not ie.find_element(By.ID,"enableMotion").is_selected():
-                time.sleep(0.5)
-                print("移动侦测已经关闭")
-            if ie.find_element(By.ID,"enableMotion").is_selected():
-                print("移动侦测已经关闭")
-                ie.find_element(By.ID,"enableMotion").click()
-                ie.find_element(By.CLASS_NAME,"btn-save").click()
+
+
+            len2 = ie.find_elements(By.ID,"enableMotion")
+#监测有无移动侦测按钮
+            if len(len2) == 0:
+                print("没有找到移动侦测")
+            else:
+                if not ie.find_element(By.ID,"enableMotion").is_selected():
+                    time.sleep(0.5)
+                    print("移动侦测已经关闭")
+                if ie.find_element(By.ID,"enableMotion").is_selected():
+                    print("移动侦测已经关闭")
+                    ie.find_element(By.ID,"enableMotion").click()
+                    ie.find_element(By.CLASS_NAME,"btn-save").click()
 print("正在关闭浏览器")
 ie.quit()
 print("配置完成")
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
-print(bcolors.HEADER + "警告的颜色字体?" +bcolors.ENDC)
+
+
