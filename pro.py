@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import json
 import time
+
 title = "海康威视摄像机网页批量配置工具v1.0\n"
 print(title)
 ie = Ie(executable_path='IEDriverServer.exe')
@@ -19,7 +20,7 @@ count = len(open(r"list.txt",'r').readlines())
 print("总共IP地址数量为：",end = "")
 print(count)
 #打开IP地址文件遍历,循环
-time.sleep(2)
+time.sleep(1)
 f = open("list.txt")
 with open("list.txt") as file:
     for item in file:
@@ -36,8 +37,9 @@ with open("list.txt") as file:
             ie.find_element(By.ID,"username").send_keys("admin")
             ie.find_element(By.ID,"password").clear()
             ie.find_element(By.ID,"password").send_keys("Admin256")
-            ie.find_element(By.CLASS_NAME,"login-btn").click()
             time.sleep(1)
+            ie.find_element(By.CLASS_NAME,"login-btn").click()
+            time.sleep(2)
             ie.find_element(By.NAME,"event").click()
             time.sleep(2)
             ie.implicitly_wait(20)
@@ -48,9 +50,18 @@ with open("list.txt") as file:
                 print("移动侦测已经关闭")
                 ie.find_element(By.ID,"enableMotion").click()
                 ie.find_element(By.CLASS_NAME,"btn-save").click()
+print("正在关闭浏览器")
 ie.quit()
 print("配置完成")
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-
-
+print(bcolors.HEADER + "警告的颜色字体?" +bcolors.ENDC)
